@@ -24,6 +24,13 @@ function copyTree(source, target) {
 }
 
 mkdirSync(outputDir, { recursive: true });
+
+// The entry is meaningless without the app itself: fail loudly instead of
+// silently producing an empty output directory.
+if (!existsSync(join(repoRoot, 'app'))) {
+  throw new Error(`app/ directory not found under ${repoRoot}`);
+}
+
 copyTree(join(repoRoot, 'app'), join(outputDir, 'app'));
 copyTree(join(repoRoot, 'screenshots'), join(outputDir, 'screenshots'));
 
@@ -41,3 +48,6 @@ const dossier = buildDossier(outputDir, {
   app_path_max_bytes: 1000,
 });
 writeFileSync(join(outputDir, 'dossier.json'), dossier);
+
+// One line on stdout so a local run shows what it produced.
+console.log(`wrote ${join(outputDir, 'dossier.json')} (${dossier.length} bytes)`);
