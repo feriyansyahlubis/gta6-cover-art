@@ -1,8 +1,8 @@
 # Vice City Cover Studio
 
-[![make.fun](https://img.shields.io/badge/make.fun-bounty-ff2e88)](https://make.fun/)
-[![competition](https://img.shields.io/badge/competition-gta6--cover--art--01-7b2fbe)](https://make.fun/c/gta6-cover-art-01)
-[![offline](https://img.shields.io/badge/offline-0%20network%20requests-2ea043)](https://make.fun/c/gta6-cover-art-01)
+[![make.fun · gta6-cover-art-01](https://make.fun/badge/gta6-cover-art-01.svg)](https://make.fun/bounty/gta6-cover-art-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
+[![rank](https://make.fun/badge/gta6-cover-art-01/feriyansyahlubis/gta6-cover-art/rank.svg)](https://make.fun/bounty/gta6-cover-art-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
+[![reward](https://make.fun/badge/gta6-cover-art-01/feriyansyahlubis/gta6-cover-art/reward.svg)](https://make.fun/bounty/gta6-cover-art-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
 
 **Vice City Cover Studio** is a make.fun entry for the [Make GTA 6 Cover Art](https://make.fun/c/gta6-cover-art-01) bounty. It is an offline web app that turns your photo and a caption into GTA-poster-style cover art: multi-panel layouts, bold sunset lettering, a Vice City colour grade — exported as a PNG to share. Your photos never leave your machine.
 
