@@ -1,12 +1,81 @@
-html, body { margin: 0; height: 100%; background: #f2f0f4; color: #1d1b22; font: 15px/1.4 system-ui, sans-serif; }
-.app { display: flex; gap: 32px; align-items: center; justify-content: center; height: 100%; padding: 24px; box-sizing: border-box; }
-.controls { display: flex; flex-direction: column; gap: 14px; width: 280px; }
-.controls h1 { margin: 0; font-size: 28px; }
-.controls p { margin: 0; color: #5c5866; }
-label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
-input[type=text] { font: inherit; padding: 8px; border: 1px solid #c9c4d1; border-radius: 6px; }
-button { font: inherit; font-weight: 700; padding: 10px; border: 0; border-radius: 6px; background: #1d1b22; color: #fff; cursor: pointer; }
-canvas { width: min(70vh, 60vw); height: min(70vh, 60vw); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); }
-body.shot-cover .controls { display: none; }
-body.shot-cover .app { padding: 0; }
-body.shot-cover canvas { width: 100vw; height: 100vh; box-shadow: none; }
+/* Vice City Cover Studio — the editor's own look: a dark dusk panel beside the
+   live poster preview. The app's fonts are vendored under fonts/ (SIL OFL). */
+@font-face {
+  font-family: 'Anton';
+  src: url('./fonts/Anton-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pacifico';
+  src: url('./fonts/Pacifico-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: #12081f; color: #f4eefc; font: 15px/1.45 system-ui, -apple-system, sans-serif; }
+body { background: linear-gradient(160deg, #1c0b33 0%, #12081f 55%, #0a0514 100%); }
+
+.app { display: flex; gap: 28px; align-items: flex-start; justify-content: center; max-width: 1480px; margin: 0 auto; padding: 22px; }
+.preview-pane { position: sticky; top: 22px; flex: 1 1 auto; min-width: 0; text-align: center; }
+#cover { width: min(100%, calc(100vh - 90px)); max-width: 860px; height: auto; aspect-ratio: auto; box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08); cursor: grab; background: #2b1838; }
+#cover:active { cursor: grabbing; }
+.preview-hint { margin: 12px 0 0; color: #b9a8d6; font-size: 13px; }
+
+.controls { flex: 0 0 380px; display: flex; flex-direction: column; gap: 18px; padding-bottom: 40px; }
+.brand h1 { margin: 0; font-family: 'Anton', 'Arial Narrow', sans-serif; font-weight: 400; font-size: 34px; letter-spacing: 0.5px; text-transform: uppercase; background: linear-gradient(180deg, #fffbe8, #ffd76a 55%, #ff5e7a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.brand p { margin: 6px 0 0; color: #cbbbe4; }
+.group { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; padding: 14px 16px; }
+.group h2 { margin: 0 0 10px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #ff8ad8; }
+.group label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 13px; color: #e9e2f5; margin-bottom: 10px; }
+.group label:last-child { margin-bottom: 0; }
+
+input[type=text] { font: inherit; padding: 9px 10px; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 8px; background: rgba(0, 0, 0, 0.35); color: #fff; }
+input[type=text]:focus { outline: 2px solid #ff2e88; outline-offset: 1px; }
+input[type=range] { width: 100%; accent-color: #ff2e88; }
+button { font: inherit; font-weight: 700; padding: 9px 12px; border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 8px; background: rgba(255, 255, 255, 0.08); color: #fff; cursor: pointer; }
+button:hover { background: rgba(255, 255, 255, 0.16); }
+button.primary { background: linear-gradient(135deg, #ff2e88, #ff7a3d); border: 0; font-size: 17px; padding: 13px; }
+button.primary:hover { filter: brightness(1.12); }
+.file-btn { display: inline-block; font-weight: 700; padding: 10px 14px; border-radius: 8px; background: linear-gradient(135deg, #ff2e88, #ff7a3d); color: #fff; cursor: pointer; }
+.file-btn input { display: none; }
+.samples { display: flex; align-items: center; gap: 8px; margin: 10px 0; color: #b9a8d6; font-size: 13px; flex-wrap: wrap; }
+.samples button { padding: 5px 10px; font-size: 13px; }
+.tray { display: flex; gap: 10px; flex-wrap: wrap; }
+.tray-empty { margin: 0; color: #b9a8d6; font-size: 13px; }
+.thumb { width: 96px; cursor: pointer; text-align: center; }
+.thumb canvas { width: 96px; height: 96px; object-fit: cover; border-radius: 8px; border: 2px solid rgba(255, 255, 255, 0.2); display: block; }
+.thumb:hover canvas { border-color: #ff2e88; }
+.thumb span { display: block; margin-top: 4px; font-size: 11px; color: #cbbbe4; word-break: break-all; }
+.note { margin: 8px 0 0; color: #b9a8d6; font-size: 12px; }
+
+.picker { display: flex; flex-direction: column; gap: 8px; }
+.picker.sizes { flex-direction: row; }
+.picker.sizes .pick { flex: 1; }
+.pick { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; padding: 10px 12px; }
+.pick.active { border-color: #ff2e88; background: rgba(255, 46, 136, 0.18); box-shadow: 0 0 0 1px #ff2e88; }
+.pick small { color: #b9a8d6; font-weight: 400; font-size: 12px; }
+.pick .swatch { width: 100%; height: 14px; border-radius: 4px; margin-bottom: 4px; }
+
+.panel-label { margin: 0 0 10px; font-weight: 700; color: #ffd76a; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; }
+.row button { flex: 1; }
+.toggles { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; }
+.toggles label { display: flex; flex-direction: row; align-items: center; gap: 8px; font-weight: 600; margin: 0; cursor: pointer; }
+.toggles input { accent-color: #ff2e88; width: 17px; height: 17px; }
+.export { display: flex; flex-direction: column; gap: 10px; }
+#status { margin: 0; color: #b9a8d6; font-size: 13px; min-height: 19px; }
+
+@media (max-width: 980px) {
+  .app { flex-direction: column; }
+  .preview-pane { position: static; width: 100%; }
+  .controls { flex-basis: auto; width: 100%; }
+}
+
+/* Screenshot scenes: a cover shot hides the editor and fills the frame. */
+body.shot-cover { background: #12081f; }
+body.shot-cover .app { display: block; max-width: none; padding: 0; }
+body.shot-cover .controls, body.shot-cover .preview-hint { display: none; }
+body.shot-cover .preview-pane { position: static; }
+body.shot-cover #cover { width: 100vw; height: 100vh; max-width: none; box-shadow: none; object-fit: contain; }
